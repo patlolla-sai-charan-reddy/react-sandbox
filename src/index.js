@@ -1,51 +1,39 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import Reuse from "../src/app";
 
 import "./styles.css";
 
-console.log("React", React);
-
-/* functional Component - no data manipulation
-
-class based component - data and state management
-
-
-*/
-
-function App() {
-  return <li>hello</li>;
-}
-
-class Hey extends React.Component {
-  constructor() {
-    super();
+class Test extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      data: ""
+      data: "aaaa"
     };
   }
+
   componentDidMount() {
+    setTimeout(() => this.rendeTest("xxx"), 1000);
+
+    setTimeout(() => {
+      this.rendeTest("ssa");
+    }, 4000);
+  }
+
+  rendeTest(props) {
     this.setState({
-      data: "sai"
+      data: props
     });
   }
+
   render() {
     return (
       <div>
-        <li>{this.state.data}</li>
-        <li>{this.props.data}</li>
+        <Reuse data={this.state.data} static={"hello"} />
+        <Reuse data={this.state.data} static={"hi"} />
       </div>
     );
   }
 }
 
-class Apps extends React.Component {
-  constructor() {
-    super();
-  }
-  render() {
-    return <Hey data={"hello"} />;
-  }
-}
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<Apps />, rootElement);
+ReactDOM.render(<Test />, document.getElementById("root"));
